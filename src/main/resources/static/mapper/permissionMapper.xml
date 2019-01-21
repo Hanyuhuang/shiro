@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyh.shiro.mapper.PermissionMapper">
+
+    <select id="listPermissionByRole" parameterType="Role" resultMap="permissionMap">
+		select permission.* from permission,role_permission where
+		permission.id= role_permission.permission_id and
+		role_permission.role_id = #{id}
+	</select>
+    <resultMap id="permissionMap" type="Permission">
+	    <id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="description" property="description" />
+	</resultMap>
+</mapper>

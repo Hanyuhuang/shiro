@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyh.shiro.mapper.UserMapper">
+
+    <select id="getUserByAccount" resultMap="userMap">
+		select user.*,role.name as role_name,role.description
+		 from role,user where user.role = role.id and phone=#{phone}
+	</select>
+	<resultMap id="userMap" type="User" autoMapping="true">
+		<id column="id" property="id"/>
+		<association property="role" javaType="Role" autoMapping="true">
+			<result column="role" property="id"/>
+			<result column="role_name" property="name"/>
+		</association>
+	</resultMap>
+
+	<select id="list" resultMap="userList">
+		select user.*,role.name as role_name,role.description
+		 from role,user where user.role = role.id
+	</select>
+	<resultMap id="userList" type="User" autoMapping="true">
+		<id column="id" property="id"/>
+		<association property="role" javaType="Role" autoMapping="true">
+			<result column="role" property="id"/>
+			<result column="role_name" property="name"/>
+		</association>
+	</resultMap>
+
+	<select id="getUserById" resultMap="User">
+		select user.*,role.name as role_name,role.description
+		 from role,user where user.role = role.id and user.id=#{id}
+	</select>
+	<resultMap id="User" type="User" autoMapping="true">
+		<id column="id" property="id"/>
+		<association property="role" javaType="Role" autoMapping="true">
+			<result column="role" property="id"/>
+			<result column="role_name" property="name"/>
+			<result column="description" property="description"/>
+		</association>
+	</resultMap>
+
+	<insert id="addUser" parameterType="User">
+		insert into user (username, password, sex, age, phone) values (#{username},#{password},#{sex},#{age},#{phone})
+	</insert>
+
+	<update id="updateUser" parameterType="User">
+		update user set username=#{username},age=#{age},sex=#{sex},phone=#{phone},status=#{status} where id = #{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="User">
+		delete * from user where id = #{id}
+	</delete>
+</mapper>

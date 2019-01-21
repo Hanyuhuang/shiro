@@ -1,0 +1,24 @@
+server:
+  servlet:
+    context-path: /shiro
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shiro?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true
+    username: root
+    password: 980709
+  thymeleaf:
+    cache: false
+    resources:
+      static-locations: classpath:static/
+
+mybatis:
+  mapper-locations: classpath:static/mapper/*.xml
+  type-aliases-package: com.hyh.shiro.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.hyh.shiro.mapper: debug
